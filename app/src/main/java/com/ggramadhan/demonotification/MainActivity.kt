@@ -3,6 +3,8 @@ package com.ggramadhan.demonotification
 
 import android.app.Notification
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
@@ -18,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         notificationManager = NotificationManagerCompat.from(this)
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
         btnSend1.setOnClickListener{
             val name : String = etTitle.text.toString()
@@ -26,6 +30,8 @@ class MainActivity : AppCompatActivity() {
                 .setSmallIcon(R.drawable.ic_favorite)
                 .setContentTitle(title)
                 .setContentText(message)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
                 .setPriority(NotificationManager.IMPORTANCE_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
             val notification: Notification = builder.build()
